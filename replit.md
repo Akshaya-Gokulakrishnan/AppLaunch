@@ -8,6 +8,7 @@ This is a Flask-based web application that serves as a portal for launching and 
 
 ```
 Preferred communication style: Simple, everyday language.
+Theme preference: Professional light theme (no dark theme).
 ```
 
 ## System Architecture
@@ -17,7 +18,7 @@ The application follows a traditional Flask web application architecture with th
 ### Frontend Architecture
 - **Template Engine**: Jinja2 templates with Bootstrap for responsive UI
 - **Static Assets**: CSS and JavaScript files for styling and interactivity
-- **UI Framework**: Bootstrap with dark theme and Feather icons
+- **UI Framework**: Bootstrap with professional light theme and Feather icons
 - **Client-side Features**: Search, filtering, and auto-refresh functionality
 
 ### Backend Architecture

@@ -33,7 +33,7 @@
       "description": "Python calculator",
       "command": "python3 -c \"print('Simple calculator mode - use Python expressions')\"",
       "working_dir": "",
-      "icon": "calculator",
+      "icon": "plus-circle",
       "category": "Utilities"
     }
   ]

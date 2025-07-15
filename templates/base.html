@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Application Portal{% endblock %}</title>
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
@@ -14,9 +19,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 fade-in">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('index') }}">
                 <i data-feather="grid"></i>
@@ -61,14 +66,14 @@
     {% endwith %}
 
     <!-- Main Content -->
-    <main class="container mt-4">
+    <main class="container mt-4 mb-5 flex-grow-1">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-5">
+    <footer class="bg-white border-top py-4 mt-auto">
         <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Application Portal. Built with Flask and Bootstrap.</p>
+            <p class="mb-0 text-muted">&copy; 2025 Application Portal. Built with Flask and Bootstrap.</p>
         </div>
     </footer>
 

@@ -16,11 +16,11 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
-                <i data-feather="grid"></i>
-                Application Portal
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+                <i data-feather="zap" class="me-2"></i>
+                LaunchPad
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -30,15 +30,15 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'index' else '' }}" href="{{ url_for('index') }}">
                             <i data-feather="home"></i>
-                            Home
+                            Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('manage') }}">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'manage' else '' }}" href="{{ url_for('manage') }}">
                             <i data-feather="settings"></i>
-                            Manage
+                            Manage Apps
                         </a>
                     </li>
                 </ul>
@@ -66,9 +66,19 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Application Portal. Built with Flask and Bootstrap.</p>
+    <footer class="bg-secondary text-light py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        <i data-feather="zap" class="me-2"></i>
+                        LaunchPad - Application Management Made Easy
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-muted">Built with Flask & Bootstrap</small>
+                </div>
+            </div>
         </div>
     </footer>
 

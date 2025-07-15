@@ -125,33 +125,47 @@ function updateStatusBadges(applications) {
     applications.forEach(app => {
         const badge = document.querySelector(`[data-app-id="${app.id}"]`);
         if (badge) {
-            badge.textContent = app.status;
-            badge.className = `badge bg-${app.status === 'running' ? 'success' : 'secondary'} status-badge`;
+            // Update badge content and styling
+            badge.innerHTML = `<i data-feather="${app.status === 'running' ? 'play' : 'pause'}" class="feather-sm me-1"></i>${app.status.charAt(0).toUpperCase() + app.status.slice(1)}`;
+            badge.className = `badge bg-${app.status === 'running' ? 'success' : 'secondary'} status-badge ${app.status === 'running' ? 'pulse-running' : ''}`;
         }
         
         // Update action buttons
-        const card = badge.closest('.card');
+        const card = badge ? badge.closest('.card') : null;
         if (card) {
             const footer = card.querySelector('.card-footer');
             if (footer) {
                 const buttonContainer = footer.querySelector('.d-flex');
                 if (buttonContainer) {
-                    const actionButton = buttonContainer.querySelector('a');
+                    const actionButton = buttonContainer.querySelector('a.btn');
                     if (actionButton) {
                         if (app.status === 'running') {
                             actionButton.href = `/stop/${app.id}`;
-                            actionButton.className = 'btn btn-danger btn-sm';
-                            actionButton.innerHTML = '<i data-feather="stop-circle"></i> Stop';
+                            actionButton.className = 'btn btn-danger btn-sm d-flex align-items-center';
+                            actionButton.innerHTML = '<i data-feather="stop-circle" class="feather-sm me-2"></i>Stop Application';
                         } else {
                             actionButton.href = `/launch/${app.id}`;
-                            actionButton.className = 'btn btn-success btn-sm';
-                            actionButton.innerHTML = '<i data-feather="play-circle"></i> Launch';
+                            actionButton.className = 'btn btn-success btn-sm d-flex align-items-center';
+                            actionButton.innerHTML = '<i data-feather="play-circle" class="feather-sm me-2"></i>Launch Application';
                         }
                     }
                 }
             }
         }
     });
+    
+    // Update stats cards
+    const runningCount = applications.filter(app => app.status === 'running').length;
+    const stoppedCount = applications.filter(app => app.status === 'stopped').length;
+    const totalCount = applications.length;
+    
+    const runningCard = document.querySelector('.card.bg-success h3');
+    const stoppedCard = document.querySelector('.card.bg-secondary h3');
+    const totalCard = document.querySelector('.card.bg-info h3');
+    
+    if (runningCard) runningCard.textContent = runningCount;
+    if (stoppedCard) stoppedCard.textContent = stoppedCount;
+    if (totalCard) totalCard.textContent = totalCount;
     
     // Re-initialize feather icons for updated buttons
     feather.replace();

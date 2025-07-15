@@ -1,40 +1,58 @@
 {
   "applications": [
     {
-      "id": "text-editor",
-      "name": "Text Editor",
-      "description": "Simple text editor application",
-      "command": "nano",
+      "id": "python-server",
+      "name": "Python HTTP Server",
+      "description": "Simple HTTP server on port 8000",
+      "command": "python3 -m http.server 8000",
       "working_dir": "",
-      "icon": "edit-3",
-      "category": "Utilities"
+      "icon": "server",
+      "category": "Development"
     },
     {
-      "id": "file-manager",
-      "name": "File Manager",
-      "description": "Browse and manage files",
-      "command": "ls -la",
+      "id": "ping-test",
+      "name": "Network Ping",
+      "description": "Ping Google DNS to test connectivity",
+      "command": "ping -c 5 8.8.8.8",
       "working_dir": "",
-      "icon": "folder",
-      "category": "Utilities"
+      "icon": "wifi",
+      "category": "Network"
     },
     {
-      "id": "system-monitor",
-      "name": "System Monitor",
-      "description": "Monitor system resources",
-      "command": "top",
+      "id": "system-info",
+      "name": "System Info",
+      "description": "Display system information",
+      "command": "uname -a",
+      "working_dir": "",
+      "icon": "info",
+      "category": "System"
+    },
+    {
+      "id": "disk-usage",
+      "name": "Disk Usage",
+      "description": "Check disk space usage",
+      "command": "df -h",
+      "working_dir": "",
+      "icon": "hard-drive",
+      "category": "System"
+    },
+    {
+      "id": "process-monitor",
+      "name": "Process Monitor",
+      "description": "Monitor running processes",
+      "command": "ps aux",
       "working_dir": "",
       "icon": "activity",
       "category": "System"
     },
     {
-      "id": "calculator",
-      "name": "Calculator",
-      "description": "Python calculator",
-      "command": "python3 -c \"print('Simple calculator mode - use Python expressions')\"",
+      "id": "python-version",
+      "name": "Python Version",
+      "description": "Check Python version and info",
+      "command": "python3 --version",
       "working_dir": "",
-      "icon": "calculator",
-      "category": "Utilities"
+      "icon": "code",
+      "category": "Development"
     }
   ]
 }

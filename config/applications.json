@@ -1,0 +1,40 @@
+{
+  "applications": [
+    {
+      "id": "text-editor",
+      "name": "Text Editor",
+      "description": "Simple text editor application",
+      "command": "nano",
+      "working_dir": "",
+      "icon": "edit-3",
+      "category": "Utilities"
+    },
+    {
+      "id": "file-manager",
+      "name": "File Manager",
+      "description": "Browse and manage files",
+      "command": "ls -la",
+      "working_dir": "",
+      "icon": "folder",
+      "category": "Utilities"
+    },
+    {
+      "id": "system-monitor",
+      "name": "System Monitor",
+      "description": "Monitor system resources",
+      "command": "top",
+      "working_dir": "",
+      "icon": "activity",
+      "category": "System"
+    },
+    {
+      "id": "calculator",
+      "name": "Calculator",
+      "description": "Python calculator",
+      "command": "python3 -c \"print('Simple calculator mode - use Python expressions')\"",
+      "working_dir": "",
+      "icon": "calculator",
+      "category": "Utilities"
+    }
+  ]
+}

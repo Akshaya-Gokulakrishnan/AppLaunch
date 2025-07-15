@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Application Portal - Manage{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>Manage Applications</h1>
+        <p class="text-muted">Add, remove, or configure applications in your portal.</p>
+    </div>
+</div>
+
+<!-- Add Application Form -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i data-feather="plus-circle"></i>
+                    Add New Application
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_application') }}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="id" class="form-label">Application ID *</label>
+                                <input type="text" class="form-control" id="id" name="id" required 
+                                       placeholder="unique-app-id" pattern="[a-z0-9-]+">
+                                <div class="form-text">Unique identifier (lowercase, numbers, hyphens only)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Application Name *</label>
+                                <input type="text" class="form-control" id="name" name="name" required 
+                                       placeholder="My Application">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="2" 
+                                  placeholder="Brief description of the application"></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="command" class="form-label">Command *</label>
+                                <input type="text" class="form-control" id="command" name="command" required 
+                                       placeholder="python3 app.py">
+                                <div class="form-text">Full command to launch the application</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="working_dir" class="form-label">Working Directory</label>
+                                <input type="text" class="form-control" id="working_dir" name="working_dir" 
+                                       placeholder="/path/to/app">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="icon" class="form-label">Icon</label>
+                                <select class="form-select" id="icon" name="icon">
+                                    <option value="play-circle">Play Circle</option>
+                                    <option value="terminal">Terminal</option>
+                                    <option value="code">Code</option>
+                                    <option value="folder">Folder</option>
+                                    <option value="settings">Settings</option>
+                                    <option value="activity">Activity</option>
+                                    <option value="calculator">Calculator</option>
+                                    <option value="edit-3">Edit</option>
+                                    <option value="monitor">Monitor</option>
+                                    <option value="globe">Globe</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-select" id="category" name="category">
+                                    <option value="General">General</option>
+                                    <option value="System">System</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Development">Development</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i data-feather="plus"></i>
+                        Add Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Existing Applications -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i data-feather="list"></i>
+                    Existing Applications
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if applications %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Icon</th>
+                                    <th>Name</th>
+                                    <th>ID</th>
+                                    <th>Category</th>
+                                    <th>Command</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for app in applications %}
+                                <tr>
+                                    <td>
+                                        <i data-feather="{{ app.icon }}"></i>
+                                    </td>
+                                    <td>
+                                        <strong>{{ app.name }}</strong>
+                                        {% if app.description %}
+                                            <br><small class="text-muted">{{ app.description }}</small>
+                                        {% endif %}
+                                    </td>
+                                    <td><code>{{ app.id }}</code></td>
+                                    <td>
+                                        <span class="badge bg-info">{{ app.category }}</span>
+                                    </td>
+                                    <td>
+                                        <code>{{ app.command[:50] }}{% if app.command|length > 50 %}...{% endif %}</code>
+                                        {% if app.working_dir %}
+                                            <br><small class="text-muted">Working dir: {{ app.working_dir }}</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ url_for('remove_application', app_id=app.id) }}" 
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Are you sure you want to remove {{ app.name }}?')">
+                                            <i data-feather="trash-2"></i>
+                                            Remove
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i data-feather="info"></i>
+                        No applications configured yet. Use the form above to add your first application.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

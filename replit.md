@@ -9,6 +9,7 @@ This is a Flask-based web application that serves as a portal for launching and 
 ```
 Preferred communication style: Simple, everyday language.
 Theme preference: Professional light theme (no dark theme).
+Application preference: User wants to add their own applications instead of default ones.
 ```
 
 ## System Architecture

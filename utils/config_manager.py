@@ -87,11 +87,16 @@ class ConfigManager:
         """
         try:
             # Validate required fields
-            required_fields = ['id', 'name', 'command']
+            required_fields = ['id', 'name']
             for field in required_fields:
                 if not app_config.get(field):
                     logger.error(f"Missing required field '{field}' in application config")
                     return False
+            
+            # Check if components or command is provided
+            if not app_config.get('command') and not app_config.get('components'):
+                logger.error("Either 'command' or 'components' must be provided")
+                return False
             
             # Check if application ID already exists
             if self.get_application(app_config['id']):
@@ -103,6 +108,15 @@ class ConfigManager:
             app_config.setdefault('working_dir', '')
             app_config.setdefault('icon', 'play-circle')
             app_config.setdefault('category', 'General')
+            
+            # If components are provided, validate them
+            if app_config.get('components'):
+                for component in app_config['components']:
+                    if not component.get('name') or not component.get('command'):
+                        logger.error("Each component must have 'name' and 'command'")
+                        return False
+                    component.setdefault('working_dir', app_config.get('working_dir', ''))
+                    component.setdefault('order', 0)
             
             # Add to configuration
             self.config['applications'].append(app_config)

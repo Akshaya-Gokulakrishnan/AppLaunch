@@ -13,6 +13,7 @@ class ProcessManager:
         self.running_processes: Dict[str, subprocess.Popen] = {}
         self.process_info: Dict[str, Dict] = {}
         self.output_buffers: Dict[str, str] = {}
+        self.component_processes: Dict[str, Dict[str, subprocess.Popen]] = {}  # app_id -> {component_name: process}
     
     def launch_application(self, app_id: str, app_config: Dict) -> bool:
         """
@@ -31,6 +32,19 @@ class ProcessManager:
                 logger.warning(f"Application {app_id} is already running")
                 return False
             
+            # Check if application has components (multi-component) or single command
+            if app_config.get('components'):
+                return self._launch_multi_component_application(app_id, app_config)
+            else:
+                return self._launch_single_component_application(app_id, app_config)
+                
+        except Exception as e:
+            logger.error(f"Error launching application {app_id}: {e}")
+            return False
+    
+    def _launch_single_component_application(self, app_id: str, app_config: Dict) -> bool:
+        """Launch a single-component application"""
+        try:
             command = app_config.get('command', '')
             working_dir = app_config.get('working_dir', '') or None
             
@@ -59,7 +73,8 @@ class ProcessManager:
                 'pid': process.pid,
                 'command': command,
                 'working_dir': working_dir,
-                'name': app_config.get('name', app_id)
+                'name': app_config.get('name', app_id),
+                'type': 'single'
             }
             self.output_buffers[app_id] = ""
             
@@ -73,7 +88,91 @@ class ProcessManager:
             logger.error(f"Permission denied launching application {app_id}")
             return False
         except Exception as e:
-            logger.error(f"Error launching application {app_id}: {e}")
+            logger.error(f"Error launching single component application {app_id}: {e}")
+            return False
+    
+    def _launch_multi_component_application(self, app_id: str, app_config: Dict) -> bool:
+        """Launch a multi-component application (frontend + backend)"""
+        try:
+            components = app_config.get('components', [])
+            
+            if not components:
+                logger.error(f"No components specified for application {app_id}")
+                return False
+            
+            # Sort components by order
+            components = sorted(components, key=lambda x: x.get('order', 0))
+            
+            launched_processes = {}
+            combined_output = ""
+            
+            for component in components:
+                component_name = component.get('name', '')
+                command = component.get('command', '')
+                working_dir = component.get('working_dir', '') or app_config.get('working_dir', '') or None
+                
+                if not command:
+                    logger.error(f"No command specified for component {component_name} in application {app_id}")
+                    continue
+                
+                # Split command into parts for subprocess
+                command_parts = command.split()
+                
+                # Launch the component process
+                process = subprocess.Popen(
+                    command_parts,
+                    cwd=working_dir,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    stdin=subprocess.PIPE,
+                    text=True,
+                    bufsize=1,
+                    universal_newlines=True
+                )
+                
+                launched_processes[component_name] = process
+                combined_output += f"[{component_name}] Started with PID {process.pid}\n"
+                
+                logger.info(f"Successfully launched component {component_name} for application {app_id} with PID {process.pid}")
+                
+                # Small delay between component launches
+                import time
+                time.sleep(0.5)
+            
+            if launched_processes:
+                # Store component processes
+                self.component_processes[app_id] = launched_processes
+                
+                # Create a combined process info
+                main_process = list(launched_processes.values())[0]  # Use first component as main
+                self.running_processes[app_id] = main_process
+                self.process_info[app_id] = {
+                    'pid': main_process.pid,
+                    'command': f"Multi-component app ({len(launched_processes)} components)",
+                    'working_dir': app_config.get('working_dir', ''),
+                    'name': app_config.get('name', app_id),
+                    'type': 'multi',
+                    'components': {name: proc.pid for name, proc in launched_processes.items()}
+                }
+                self.output_buffers[app_id] = combined_output
+                
+                logger.info(f"Successfully launched multi-component application {app_id} with {len(launched_processes)} components")
+                return True
+            else:
+                logger.error(f"Failed to launch any components for application {app_id}")
+                return False
+                
+        except Exception as e:
+            # Clean up any launched processes on error
+            if 'launched_processes' in locals():
+                for proc in launched_processes.values():
+                    try:
+                        proc.terminate()
+                        proc.wait(timeout=5)
+                    except:
+                        proc.kill()
+            
+            logger.error(f"Error launching multi-component application {app_id}: {e}")
             return False
     
     def stop_application(self, app_id: str) -> bool:
@@ -91,19 +190,39 @@ class ProcessManager:
                 logger.warning(f"Application {app_id} is not running")
                 return False
             
-            process = self.running_processes[app_id]
             process_info = self.process_info.get(app_id, {})
             
-            # Terminate the process
-            process.terminate()
-            
-            # Wait for process to terminate (with timeout)
-            try:
-                process.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                # Force kill if it doesn't terminate gracefully
-                process.kill()
-                process.wait()
+            # Check if it's a multi-component application
+            if app_id in self.component_processes:
+                # Stop all components
+                for component_name, process in self.component_processes[app_id].items():
+                    try:
+                        process.terminate()
+                        try:
+                            process.wait(timeout=5)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                            process.wait()
+                        logger.info(f"Stopped component {component_name} of application {app_id}")
+                    except Exception as e:
+                        logger.error(f"Error stopping component {component_name}: {e}")
+                
+                # Clean up component processes
+                del self.component_processes[app_id]
+            else:
+                # Single component application
+                process = self.running_processes[app_id]
+                
+                # Terminate the process
+                process.terminate()
+                
+                # Wait for process to terminate (with timeout)
+                try:
+                    process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    # Force kill if it doesn't terminate gracefully
+                    process.kill()
+                    process.wait()
             
             # Clean up
             del self.running_processes[app_id]

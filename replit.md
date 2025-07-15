@@ -10,6 +10,7 @@ This is a Flask-based web application that serves as a portal for launching and 
 Preferred communication style: Simple, everyday language.
 Theme preference: Professional light theme (no dark theme).
 Application preference: User wants to add their own applications instead of default ones.
+Application architecture: Applications have separate frontend and backend components that need to be launched together.
 ```
 
 ## System Architecture
@@ -40,16 +41,21 @@ The application follows a traditional Flask web application architecture with th
 - **Purpose**: Manages launching and tracking of application processes
 - **Implementation**: Uses Python's `subprocess` and `psutil` libraries
 - **Features**: Process state tracking, launch/stop operations, status monitoring
+- **Multi-Component Support**: Can launch multiple components per application in specified order
+- **Component Management**: Tracks and manages multiple processes for each application
 
 ### Configuration Manager
 - **Purpose**: Handles application configuration persistence
 - **Storage**: JSON file-based configuration (`config/applications.json`)
-- **Features**: CRUD operations for application definitions, default configuration creation
+- **Features**: CRUD operations for application definitions, supports both single and multi-component applications
+- **Multi-Component Support**: Applications can have multiple components (frontend/backend) with launch order
 
 ### Web Interface
 - **Main Portal**: Grid view of available applications with status indicators
-- **Management Interface**: Forms for adding/removing applications
+- **Management Interface**: Enhanced forms supporting both single and multi-component applications
 - **Real-time Updates**: JavaScript-based status refresh and filtering
+- **Multi-Component UI**: Dynamic form for adding multiple components with ordering
+- **Component Display**: Shows component count and type for multi-component applications
 
 ## Data Flow
 

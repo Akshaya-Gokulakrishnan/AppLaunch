@@ -67,7 +67,11 @@
                             <div class="mb-3">
                                 <small class="text-muted">
                                     <strong>Category:</strong> {{ app.category }}<br>
-                                    <strong>Command:</strong> <code>{{ app.command }}</code>
+                                    {% if app.components %}
+                                        <strong>Type:</strong> <span class="text-success">Multi-Component ({{ app.components|length }} parts)</span>
+                                    {% else %}
+                                        <strong>Command:</strong> <code>{{ app.command }}</code>
+                                    {% endif %}
                                 </small>
                             </div>
                         </div>

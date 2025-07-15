@@ -59,20 +59,109 @@
                                   placeholder="Brief description of the application"></textarea>
                     </div>
                     
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="mb-3">
-                                <label for="command" class="form-label">Command *</label>
-                                <input type="text" class="form-control" id="command" name="command" required 
-                                       placeholder="python3 app.py">
-                                <div class="form-text">Full command to launch the application</div>
+                    <!-- Application Type Selection -->
+                    <div class="mb-3">
+                        <label class="form-label">Application Type</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="app_type" id="single_app" value="single" checked>
+                            <label class="form-check-label" for="single_app">
+                                Single Component (Simple command)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="app_type" id="multi_app" value="multi">
+                            <label class="form-check-label" for="multi_app">
+                                Multi-Component (Frontend + Backend)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Single Component Configuration -->
+                    <div id="single_component_config">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label for="command" class="form-label">Command *</label>
+                                    <input type="text" class="form-control" id="command" name="command" 
+                                           placeholder="python3 app.py">
+                                    <div class="form-text">Full command to launch the application</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="working_dir" class="form-label">Working Directory</label>
+                                    <input type="text" class="form-control" id="working_dir" name="working_dir" 
+                                           placeholder="/path/to/app">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="working_dir" class="form-label">Working Directory</label>
-                                <input type="text" class="form-control" id="working_dir" name="working_dir" 
-                                       placeholder="/path/to/app">
+                    </div>
+                    
+                    <!-- Multi-Component Configuration -->
+                    <div id="multi_component_config" style="display: none;">
+                        <div class="mb-3">
+                            <label for="app_working_dir" class="form-label">Application Working Directory</label>
+                            <input type="text" class="form-control" id="app_working_dir" name="app_working_dir" 
+                                   placeholder="/path/to/app">
+                            <div class="form-text">Base directory for all components</div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h6>Components</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="components_container">
+                                    <!-- Backend Component -->
+                                    <div class="row mb-3 component-row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Component Name</label>
+                                            <input type="text" class="form-control" name="component_name[]" 
+                                                   value="Backend" placeholder="Backend">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Command</label>
+                                            <input type="text" class="form-control" name="component_command[]" 
+                                                   placeholder="python3 backend/app.py">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Order</label>
+                                            <input type="number" class="form-control" name="component_order[]" 
+                                                   value="1" min="1">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="form-label">&nbsp;</label>
+                                            <button type="button" class="btn btn-outline-danger btn-sm remove-component">×</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Frontend Component -->
+                                    <div class="row mb-3 component-row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Component Name</label>
+                                            <input type="text" class="form-control" name="component_name[]" 
+                                                   value="Frontend" placeholder="Frontend">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Command</label>
+                                            <input type="text" class="form-control" name="component_command[]" 
+                                                   placeholder="npm run dev">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="form-label">Order</label>
+                                            <input type="number" class="form-control" name="component_order[]" 
+                                                   value="2" min="1">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="form-label">&nbsp;</label>
+                                            <button type="button" class="btn btn-outline-danger btn-sm remove-component">×</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="add_component">
+                                    <i data-feather="plus"></i> Add Component
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -175,7 +264,12 @@
                                         <span class="badge bg-info">{{ app.category }}</span>
                                     </td>
                                     <td>
-                                        <code>{{ app.command[:50] }}{% if app.command|length > 50 %}...{% endif %}</code>
+                                        {% if app.components %}
+                                            <span class="badge bg-success">Multi-Component</span>
+                                            <br><small class="text-muted">{{ app.components|length }} components</small>
+                                        {% else %}
+                                            <code>{{ app.command[:50] }}{% if app.command|length > 50 %}...{% endif %}</code>
+                                        {% endif %}
                                         {% if app.working_dir %}
                                             <br><small class="text-muted">Working dir: {{ app.working_dir }}</small>
                                         {% endif %}
@@ -203,4 +297,76 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Initialize Feather icons
+    feather.replace();
+    
+    // Multi-component form functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const singleAppRadio = document.getElementById('single_app');
+        const multiAppRadio = document.getElementById('multi_app');
+        const singleConfig = document.getElementById('single_component_config');
+        const multiConfig = document.getElementById('multi_component_config');
+        const commandInput = document.getElementById('command');
+        const addComponentBtn = document.getElementById('add_component');
+        const componentsContainer = document.getElementById('components_container');
+        
+        // Toggle between single and multi-component configurations
+        function toggleAppType() {
+            if (singleAppRadio.checked) {
+                singleConfig.style.display = 'block';
+                multiConfig.style.display = 'none';
+                commandInput.required = true;
+            } else {
+                singleConfig.style.display = 'none';
+                multiConfig.style.display = 'block';
+                commandInput.required = false;
+            }
+        }
+        
+        singleAppRadio.addEventListener('change', toggleAppType);
+        multiAppRadio.addEventListener('change', toggleAppType);
+        
+        // Add new component row
+        addComponentBtn.addEventListener('click', function() {
+            const newRow = document.createElement('div');
+            newRow.className = 'row mb-3 component-row';
+            newRow.innerHTML = `
+                <div class="col-md-3">
+                    <label class="form-label">Component Name</label>
+                    <input type="text" class="form-control" name="component_name[]" 
+                           placeholder="Component Name">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Command</label>
+                    <input type="text" class="form-control" name="component_command[]" 
+                           placeholder="command to run">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Order</label>
+                    <input type="number" class="form-control" name="component_order[]" 
+                           value="1" min="1">
+                </div>
+                <div class="col-md-1">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-component">×</button>
+                </div>
+            `;
+            componentsContainer.appendChild(newRow);
+        });
+        
+        // Remove component row
+        componentsContainer.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-component')) {
+                const componentRows = document.querySelectorAll('.component-row');
+                if (componentRows.length > 1) {
+                    e.target.closest('.component-row').remove();
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

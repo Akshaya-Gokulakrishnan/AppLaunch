@@ -108,38 +108,55 @@ def manage():
 def add_application():
     """Add a new application to the portal"""
     try:
-        app_data = {
-            'id': request.form.get('id'),
-            'name': request.form.get('name'),
-            'description': request.form.get('description'),
-            'command': request.form.get('command'),
-            'working_dir': request.form.get('working_dir', ''),
+        # Get basic form data
+        app_config = {
+            'id': request.form.get('id', '').strip(),
+            'name': request.form.get('name', '').strip(),
+            'description': request.form.get('description', '').strip(),
             'icon': request.form.get('icon', 'play-circle'),
             'category': request.form.get('category', 'General')
         }
         
-        # Validate required fields
-        if not all([app_data['id'], app_data['name'], app_data['command']]):
-            flash("ID, Name, and Command are required fields", 'error')
-            return redirect(url_for('manage'))
+        # Check application type
+        app_type = request.form.get('app_type', 'single')
         
-        # Check if ID already exists
-        if config_manager.get_application(app_data['id']):
-            flash(f"Application with ID '{app_data['id']}' already exists", 'error')
-            return redirect(url_for('manage'))
-        
-        # Add the application
-        success = config_manager.add_application(app_data)
-        
-        if success:
-            flash(f"Application '{app_data['name']}' added successfully", 'success')
-            logger.info(f"Added new application: {app_data['id']}")
+        if app_type == 'single':
+            # Single component application
+            app_config['command'] = request.form.get('command', '').strip()
+            app_config['working_dir'] = request.form.get('working_dir', '').strip()
         else:
-            flash("Failed to add application", 'error')
+            # Multi-component application
+            app_config['working_dir'] = request.form.get('app_working_dir', '').strip()
+            
+            # Get component data
+            component_names = request.form.getlist('component_name[]')
+            component_commands = request.form.getlist('component_command[]')
+            component_orders = request.form.getlist('component_order[]')
+            
+            components = []
+            for i, name in enumerate(component_names):
+                if name.strip() and i < len(component_commands) and component_commands[i].strip():
+                    components.append({
+                        'name': name.strip(),
+                        'command': component_commands[i].strip(),
+                        'order': int(component_orders[i]) if i < len(component_orders) else 1
+                    })
+            
+            if components:
+                app_config['components'] = components
+            else:
+                flash('At least one component is required for multi-component applications.', 'error')
+                return redirect(url_for('manage'))
+        
+        # Add application using config manager
+        if config_manager.add_application(app_config):
+            flash('Application added successfully!', 'success')
+        else:
+            flash('Failed to add application. Please check the logs.', 'error')
             
     except Exception as e:
         logger.error(f"Error adding application: {e}")
-        flash(f"Error adding application: {str(e)}", 'error')
+        flash('An error occurred while adding the application.', 'error')
     
     return redirect(url_for('manage'))
 

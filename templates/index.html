@@ -67,22 +67,29 @@
                         </div>
                         
                         <div class="card-footer">
-                            <div class="d-flex justify-content-between">
-                                {% if app.status == 'running' %}
-                                    <a href="{{ url_for('stop_application', app_id=app.id) }}" 
-                                       class="btn btn-danger btn-sm">
-                                        <i data-feather="stop-circle"></i>
-                                        Stop
-                                    </a>
-                                {% else %}
-                                    <a href="{{ url_for('launch_application', app_id=app.id) }}" 
-                                       class="btn btn-success btn-sm">
-                                        <i data-feather="play-circle"></i>
-                                        Launch
-                                    </a>
-                                {% endif %}
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group" role="group">
+                                    {% if app.status == 'running' %}
+                                        <a href="{{ url_for('view_application', app_id=app.id) }}" 
+                                           class="btn btn-primary btn-sm">
+                                            <i data-feather="monitor"></i>
+                                            View
+                                        </a>
+                                        <a href="{{ url_for('stop_application', app_id=app.id) }}" 
+                                           class="btn btn-danger btn-sm">
+                                            <i data-feather="stop-circle"></i>
+                                            Stop
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('launch_application', app_id=app.id) }}" 
+                                           class="btn btn-success btn-sm">
+                                            <i data-feather="play-circle"></i>
+                                            Launch
+                                        </a>
+                                    {% endif %}
+                                </div>
                                 
-                                <small class="text-muted align-self-center">
+                                <small class="text-muted">
                                     ID: {{ app.id }}
                                 </small>
                             </div>

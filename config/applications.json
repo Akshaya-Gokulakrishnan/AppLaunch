@@ -3,17 +3,17 @@
     {
       "id": "text-editor",
       "name": "Text Editor",
-      "description": "Simple text editor application",
-      "command": "nano",
+      "description": "Interactive text editor for creating and editing files",
+      "command": "python3 apps/simple_editor.py",
       "working_dir": "",
       "icon": "edit-3",
       "category": "Utilities"
     },
     {
-      "id": "file-manager",
-      "name": "File Manager",
-      "description": "Browse and manage files",
-      "command": "ls -la",
+      "id": "file-browser",
+      "name": "File Browser",
+      "description": "Browse and manage files and directories",
+      "command": "python3 apps/file_browser.py",
       "working_dir": "",
       "icon": "folder",
       "category": "Utilities"
@@ -21,8 +21,8 @@
     {
       "id": "system-monitor",
       "name": "System Monitor",
-      "description": "Monitor system resources",
-      "command": "top",
+      "description": "Monitor system resources and processes",
+      "command": "python3 apps/system_info.py",
       "working_dir": "",
       "icon": "activity",
       "category": "System"
@@ -30,8 +30,8 @@
     {
       "id": "calculator",
       "name": "Calculator",
-      "description": "Python calculator",
-      "command": "python3 -c \"print('Simple calculator mode - use Python expressions')\"",
+      "description": "Interactive calculator with math functions",
+      "command": "python3 apps/calculator.py",
       "working_dir": "",
       "icon": "plus-circle",
       "category": "Utilities"

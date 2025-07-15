@@ -171,6 +171,63 @@ def remove_application(app_id):
     
     return redirect(url_for('manage'))
 
+@app.route('/view/<app_id>')
+def view_application(app_id):
+    """View a running application in a terminal-like interface"""
+    try:
+        application = config_manager.get_application(app_id)
+        if not application:
+            flash(f"Application '{app_id}' not found", 'error')
+            return redirect(url_for('index'))
+        
+        # Check if running
+        if not process_manager.is_running(app_id):
+            flash(f"Application '{application['name']}' is not running", 'warning')
+            return redirect(url_for('index'))
+        
+        return render_template('terminal.html', application=application, app_id=app_id)
+        
+    except Exception as e:
+        logger.error(f"Error viewing application {app_id}: {e}")
+        flash(f"Error viewing application: {str(e)}", 'error')
+        return redirect(url_for('index'))
+
+@app.route('/send_input/<app_id>', methods=['POST'])
+def send_input(app_id):
+    """Send input to a running application"""
+    try:
+        data = request.get_json()
+        if not data or 'input' not in data:
+            return jsonify({'success': False, 'error': 'No input provided'})
+        
+        user_input = data['input']
+        success = process_manager.send_input(app_id, user_input)
+        
+        if success:
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'error': 'Failed to send input'})
+            
+    except Exception as e:
+        logger.error(f"Error sending input to {app_id}: {e}")
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/get_output/<app_id>')
+def get_output(app_id):
+    """Get output from a running application"""
+    try:
+        output = process_manager.get_output(app_id)
+        return jsonify({
+            'success': True,
+            'output': output
+        })
+    except Exception as e:
+        logger.error(f"Error getting output from {app_id}: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
 @app.route('/api/status')
 def api_status():
     """API endpoint to get application status"""

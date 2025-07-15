@@ -1,175 +1,100 @@
 {% extends "base.html" %}
 
-{% block title %}LaunchPad - Dashboard{% endblock %}
+{% block title %}Application Portal - Home{% endblock %}
 
 {% block content %}
-<!-- Dashboard Header -->
-<div class="row mb-4">
+<div class="row">
     <div class="col-12">
-        <div class="bg-primary text-white rounded-4 p-4 mb-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="mb-2">
-                        <i data-feather="zap" class="me-2"></i>
-                        Application Dashboard
-                    </h1>
-                    <p class="mb-0 opacity-75">Launch and manage your applications from one place</p>
-                </div>
-                <div class="text-end">
-                    <button class="btn btn-light" onclick="refreshStatus()">
-                        <i data-feather="refresh-cw"></i>
-                        Refresh Status
-                    </button>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Available Applications</h1>
+            <button class="btn btn-secondary" onclick="refreshStatus()">
+                <i data-feather="refresh-cw"></i>
+                Refresh
+            </button>
         </div>
-    </div>
-</div>
-
-<!-- Stats Cards -->
-<div class="row mb-4">
-    <div class="col-md-4">
-        <div class="card bg-success text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Running</h5>
-                        <h3 class="mb-0">{{ applications|selectattr('status', 'equalto', 'running')|list|length }}</h3>
-                    </div>
-                    <i data-feather="play-circle" class="fs-1 opacity-50"></i>
+        
+        <!-- Search and Filter -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i data-feather="search"></i>
+                    </span>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search applications...">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card bg-secondary text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Stopped</h5>
-                        <h3 class="mb-0">{{ applications|selectattr('status', 'equalto', 'stopped')|list|length }}</h3>
-                    </div>
-                    <i data-feather="pause-circle" class="fs-1 opacity-50"></i>
-                </div>
+            <div class="col-md-6">
+                <select class="form-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="System">System</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Development">Development</option>
+                    <option value="General">General</option>
+                </select>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card bg-info text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5 class="card-title">Total Apps</h5>
-                        <h3 class="mb-0">{{ applications|length }}</h3>
-                    </div>
-                    <i data-feather="grid" class="fs-1 opacity-50"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Search and Filter -->
-<div class="row mb-4">
-    <div class="col-md-8">
-        <div class="input-group">
-            <span class="input-group-text bg-light">
-                <i data-feather="search"></i>
-            </span>
-            <input type="text" class="form-control" id="searchInput" placeholder="Search applications by name...">
-        </div>
-    </div>
-    <div class="col-md-4">
-        <select class="form-select" id="categoryFilter">
-            <option value="">All Categories</option>
-            <option value="System">System</option>
-            <option value="Development">Development</option>
-            <option value="Network">Network</option>
-            <option value="Utilities">Utilities</option>
-            <option value="General">General</option>
-        </select>
-    </div>
-</div>
-<!-- Applications Grid -->
-<div class="row" id="applicationsGrid">
-    {% if applications %}
-        {% for app in applications %}
-        <div class="col-md-6 col-lg-4 mb-4 application-card" data-category="{{ app.category }}" data-name="{{ app.name.lower() }}">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body p-4">
-                    <!-- App Header -->
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div class="d-flex align-items-center">
-                            <div class="icon-wrapper bg-primary bg-opacity-10 p-2 rounded-circle me-3">
-                                <i data-feather="{{ app.icon }}" class="text-primary"></i>
+        
+        <!-- Applications Grid -->
+        <div class="row" id="applicationsGrid">
+            {% if applications %}
+                {% for app in applications %}
+                <div class="col-md-6 col-lg-4 mb-4 application-card" data-category="{{ app.category }}" data-name="{{ app.name.lower() }}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i data-feather="{{ app.icon }}" class="me-2"></i>
+                                    <h5 class="card-title mb-0">{{ app.name }}</h5>
+                                </div>
+                                <span class="badge bg-{{ 'success' if app.status == 'running' else 'secondary' }} status-badge" 
+                                      data-app-id="{{ app.id }}">
+                                    {{ app.status }}
+                                </span>
                             </div>
-                            <div>
-                                <h5 class="card-title mb-0">{{ app.name }}</h5>
-                                <small class="text-muted">{{ app.category }}</small>
+                            
+                            <p class="card-text">{{ app.description }}</p>
+                            
+                            <div class="mb-3">
+                                <small class="text-muted">
+                                    <strong>Category:</strong> {{ app.category }}<br>
+                                    <strong>Command:</strong> <code>{{ app.command }}</code>
+                                </small>
                             </div>
                         </div>
-                        <span class="badge bg-{{ 'success' if app.status == 'running' else 'secondary' }} status-badge pulse-{{ app.status }}" 
-                              data-app-id="{{ app.id }}">
-                            <i data-feather="{{ 'play' if app.status == 'running' else 'pause' }}" class="feather-sm me-1"></i>
-                            {{ app.status.title() }}
-                        </span>
-                    </div>
-                    
-                    <!-- App Description -->
-                    <p class="card-text text-muted mb-3">{{ app.description }}</p>
-                    
-                    <!-- App Details -->
-                    <div class="bg-light rounded-3 p-3 mb-3">
-                        <small class="text-muted d-block">
-                            <i data-feather="terminal" class="feather-sm me-1"></i>
-                            <strong>Command:</strong>
-                        </small>
-                        <code class="small">{{ app.command[:60] }}{% if app.command|length > 60 %}...{% endif %}</code>
-                    </div>
-                </div>
-                
-                <!-- Card Actions -->
-                <div class="card-footer bg-transparent border-0 p-4 pt-0">
-                    <div class="d-flex justify-content-between align-items-center">
-                        {% if app.status == 'running' %}
-                            <a href="{{ url_for('stop_application', app_id=app.id) }}" 
-                               class="btn btn-danger btn-sm d-flex align-items-center">
-                                <i data-feather="stop-circle" class="feather-sm me-2"></i>
-                                Stop Application
-                            </a>
-                        {% else %}
-                            <a href="{{ url_for('launch_application', app_id=app.id) }}" 
-                               class="btn btn-success btn-sm d-flex align-items-center">
-                                <i data-feather="play-circle" class="feather-sm me-2"></i>
-                                Launch Application
-                            </a>
-                        {% endif %}
                         
-                        <small class="text-muted">
-                            <i data-feather="hash" class="feather-sm me-1"></i>
-                            {{ app.id }}
-                        </small>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between">
+                                {% if app.status == 'running' %}
+                                    <a href="{{ url_for('stop_application', app_id=app.id) }}" 
+                                       class="btn btn-danger btn-sm">
+                                        <i data-feather="stop-circle"></i>
+                                        Stop
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('launch_application', app_id=app.id) }}" 
+                                       class="btn btn-success btn-sm">
+                                        <i data-feather="play-circle"></i>
+                                        Launch
+                                    </a>
+                                {% endif %}
+                                
+                                <small class="text-muted align-self-center">
+                                    ID: {{ app.id }}
+                                </small>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
-    {% else %}
-        <div class="col-12">
-            <div class="text-center py-5">
-                <div class="mb-4">
-                    <i data-feather="inbox" class="fs-1 text-muted"></i>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        <i data-feather="info" class="me-2"></i>
+                        No applications configured. <a href="{{ url_for('manage') }}">Add some applications</a> to get started.
+                    </div>
                 </div>
-                <h4>No Applications Found</h4>
-                <p class="text-muted mb-4">Get started by adding your first application to the portal.</p>
-                <a href="{{ url_for('manage') }}" class="btn btn-primary">
-                    <i data-feather="plus-circle" class="me-2"></i>
-                    Add Application
-                </a>
-            </div>
+            {% endif %}
         </div>
-    {% endif %}
-</div>
     </div>
 </div>
 

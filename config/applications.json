@@ -1,58 +1,40 @@
 {
   "applications": [
     {
-      "id": "python-server",
-      "name": "Python HTTP Server",
-      "description": "Simple HTTP server on port 8000",
-      "command": "python3 -m http.server 8000",
+      "id": "text-editor",
+      "name": "Text Editor",
+      "description": "Simple text editor application",
+      "command": "nano",
       "working_dir": "",
-      "icon": "server",
-      "category": "Development"
+      "icon": "edit-3",
+      "category": "Utilities"
     },
     {
-      "id": "ping-test",
-      "name": "Network Ping",
-      "description": "Ping Google DNS to test connectivity",
-      "command": "ping -c 5 8.8.8.8",
+      "id": "file-manager",
+      "name": "File Manager",
+      "description": "Browse and manage files",
+      "command": "ls -la",
       "working_dir": "",
-      "icon": "wifi",
-      "category": "Network"
+      "icon": "folder",
+      "category": "Utilities"
     },
     {
-      "id": "system-info",
-      "name": "System Info",
-      "description": "Display system information",
-      "command": "uname -a",
-      "working_dir": "",
-      "icon": "info",
-      "category": "System"
-    },
-    {
-      "id": "disk-usage",
-      "name": "Disk Usage",
-      "description": "Check disk space usage",
-      "command": "df -h",
-      "working_dir": "",
-      "icon": "hard-drive",
-      "category": "System"
-    },
-    {
-      "id": "process-monitor",
-      "name": "Process Monitor",
-      "description": "Monitor running processes",
-      "command": "ps aux",
+      "id": "system-monitor",
+      "name": "System Monitor",
+      "description": "Monitor system resources",
+      "command": "top",
       "working_dir": "",
       "icon": "activity",
       "category": "System"
     },
     {
-      "id": "python-version",
-      "name": "Python Version",
-      "description": "Check Python version and info",
-      "command": "python3 --version",
+      "id": "calculator",
+      "name": "Calculator",
+      "description": "Python calculator",
+      "command": "python3 -c \"print('Simple calculator mode - use Python expressions')\"",
       "working_dir": "",
-      "icon": "code",
-      "category": "Development"
+      "icon": "calculator",
+      "category": "Utilities"
     }
   ]
 }

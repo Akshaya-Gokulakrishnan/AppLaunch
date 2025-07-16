@@ -481,3 +481,19 @@ footer {
 .navbar-nav .nav-link:hover {
     color: var(--bs-primary);
 }
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+.text-gray-900 {
+    color: #111827 !important;
+}
+.relative {
+    position: relative !important;
+}
+.tracking-tight {
+    letter-spacing: -0.015em !important;
+}
+.mb-6 {
+    margin-bottom: 1.5rem !important;
+}

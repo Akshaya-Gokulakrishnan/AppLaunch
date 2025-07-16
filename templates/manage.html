@@ -38,14 +38,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="id" class="form-label">Application ID *</label>
-                                <input type="text" class="form-control" id="id" name="id" required 
-                                       placeholder="unique-app-id" pattern="[a-z0-9-]+">
-                                <div class="form-text">Unique identifier (lowercase, numbers, hyphens only)</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
                                 <label for="name" class="form-label">Application Name *</label>
                                 <input type="text" class="form-control" id="name" name="name" required 
                                        placeholder="My Application">
@@ -120,58 +112,58 @@
                                 <h6>Components</h6>
                             </div>
                             <div class="card-body" id="components_container">
-                                <!-- Backend Component -->
-                                <div class="row mb-3 component-row">
-                                    <div class="col-md-3">
-                                        <label class="form-label">Component Name</label>
+                                    <!-- Backend Component -->
+                                    <div class="row mb-3 component-row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Component Name</label>
                                         <input type="text" class="form-control" name="component_name[]" value="Backend" placeholder="Backend">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Command</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Command</label>
                                         <input type="text" class="form-control" name="component_command[]" placeholder="python3 backend/app.py">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Working Directory</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Working Directory</label>
                                         <input type="text" class="form-control" name="component_working_dir[]" placeholder="/path/to/backend">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label class="form-label">Order</label>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="form-label">Order</label>
                                         <input type="number" class="form-control" name="component_order[]" value="1" min="1">
-                                    </div>
-                                    <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-1">
                                         <label class="form-label">Component URL (optional)</label>
                                         <input type="text" class="form-control" name="component_url[]" placeholder="http://localhost:3000/">
                                     </div>
                                 </div>
-                                <!-- Frontend Component -->
-                                <div class="row mb-3 component-row">
-                                    <div class="col-md-3">
-                                        <label class="form-label">Component Name</label>
+                                    <!-- Frontend Component -->
+                                    <div class="row mb-3 component-row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Component Name</label>
                                         <input type="text" class="form-control" name="component_name[]" value="Frontend" placeholder="Frontend">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Command</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Command</label>
                                         <input type="text" class="form-control" name="component_command[]" placeholder="npm run dev">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Working Directory</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Working Directory</label>
                                         <input type="text" class="form-control" name="component_working_dir[]" placeholder="/path/to/frontend">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label class="form-label">Order</label>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="form-label">Order</label>
                                         <input type="number" class="form-control" name="component_order[]" value="2" min="1">
-                                    </div>
-                                    <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-1">
                                         <label class="form-label">Component URL (optional)</label>
                                         <input type="text" class="form-control" name="component_url[]" placeholder="http://localhost:3000/">
                                     </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="btn btn-outline-primary btn-sm" id="add_component">
-                            <i data-feather="plus"></i> Add Component
-                        </button>
+                                
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="add_component">
+                                    <i data-feather="plus"></i> Add Component
+                                </button>
                     </div>
                     
                     <div class="row">

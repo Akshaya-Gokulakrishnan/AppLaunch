@@ -108,9 +108,13 @@ def manage():
 def add_application():
     """Add a new application to the portal"""
     try:
-        # Get basic form data
+        # Load existing applications to determine next ID
+        existing_apps = config_manager.get_applications()
+        existing_ids = [int(app['id']) for app in existing_apps if app.get('id', '').isdigit()]
+        next_id = str(max(existing_ids) + 1) if existing_ids else '100'
+        # Get basic form data (do not use ID from form)
         app_config = {
-            'id': request.form.get('id', '').strip(),
+            'id': next_id,
             'name': request.form.get('name', '').strip(),
             'description': request.form.get('description', '').strip(),
             'icon': request.form.get('icon', 'play-circle'),

@@ -81,7 +81,7 @@
                                 <div class="btn-group" role="group">
                                     {% if app.status == 'running' %}
                                         <a href="{{ url_for('view_application', app_id=app.id) }}" 
-                                           class="btn btn-primary btn-sm">
+                                           class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">
                                             <i data-feather="monitor"></i>
                                             View
                                         </a>

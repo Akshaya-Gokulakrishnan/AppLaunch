@@ -23,7 +23,18 @@
           "order": 2,
           "url": "http://localhost:3000/"
         }
-      ]
+      ],
+      "status": "stopped"
+    },
+    {
+      "id": "201",
+      "name": "Portfolio Tracker",
+      "description": "Portfolio Management Application",
+      "icon": "monitor",
+      "category": "Testing",
+      "command": "npm run dev",
+      "working_dir": "C:\\Users\\Administrator\\Documents\\Portfolio-manager-fnd\\project",
+      "url": "http://localhost:5173/"
     }
   ]
 }

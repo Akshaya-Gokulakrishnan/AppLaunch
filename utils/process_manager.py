@@ -55,17 +55,11 @@ class ProcessManager:
             # Split command into parts for subprocess
             command_parts = command.split()
             
-            # Prepare log file for single component
-            log_file = None
-            if app_config.get('name'):
-                log_file = open(f"{app_config.get('name').lower()}_{app_id}.log", "a", encoding="utf-8")
-            else:
-                log_file = open(f"app_{app_id}.log", "a", encoding="utf-8")
-            # Launch the process
+            # Remove log file handling, restore original subprocess.PIPE behavior
             process = subprocess.Popen(
                 command_parts,
                 cwd=working_dir,
-                stdout=log_file,
+                stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,  # Combine stderr with stdout
                 stdin=subprocess.PIPE,
                 text=True,
@@ -125,13 +119,11 @@ class ProcessManager:
                 # Split command into parts for subprocess
                 command_parts = command.split()
                 
-                # Prepare log file for each component
-                comp_log_file = open(f"{component_name.lower()}_{app_id}.log", "a", encoding="utf-8")
-                # Launch the component process
+                # Remove log file handling, restore original subprocess.PIPE behavior
                 process = subprocess.Popen(
                     command_parts,
                     cwd=working_dir,
-                    stdout=comp_log_file,
+                    stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     stdin=subprocess.PIPE,
                     text=True,

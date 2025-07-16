@@ -157,6 +157,31 @@ function updateStatusBadges(applications) {
     feather.replace();
 }
 
+// Show/hide single vs multi-component config sections
+
+document.addEventListener('DOMContentLoaded', function() {
+    const singleRadio = document.getElementById('single_app');
+    const multiRadio = document.getElementById('multi_app');
+    const singleConfig = document.getElementById('single_component_config');
+    const multiConfig = document.getElementById('multi_component_config');
+
+    function updateFormVisibility() {
+        if (singleRadio && singleRadio.checked) {
+            singleConfig.style.display = 'block';
+            multiConfig.style.display = 'none';
+        } else if (multiRadio && multiRadio.checked) {
+            singleConfig.style.display = 'none';
+            multiConfig.style.display = 'block';
+        }
+    }
+
+    if (singleRadio && multiRadio && singleConfig && multiConfig) {
+        singleRadio.addEventListener('change', updateFormVisibility);
+        multiRadio.addEventListener('change', updateFormVisibility);
+        updateFormVisibility(); // Set initial state
+    }
+});
+
 // Form validation for add application form
 document.addEventListener('DOMContentLoaded', function() {
     const addForm = document.querySelector('form[action*="add_application"]');
@@ -164,20 +189,48 @@ document.addEventListener('DOMContentLoaded', function() {
         addForm.addEventListener('submit', function(e) {
             const id = document.getElementById('id').value;
             const name = document.getElementById('name').value;
-            const command = document.getElementById('command').value;
-            
-            // Validate ID format
+            const singleRadio = document.getElementById('single_app');
+            const multiRadio = document.getElementById('multi_app');
             if (!/^[a-z0-9-]+$/.test(id)) {
                 e.preventDefault();
                 alert('Application ID must contain only lowercase letters, numbers, and hyphens.');
                 return;
             }
-            
-            // Validate required fields
-            if (!id || !name || !command) {
+            if (!id || !name) {
                 e.preventDefault();
-                alert('Please fill in all required fields (ID, Name, Command).');
+                alert('Please fill in all required fields (ID, Name).');
                 return;
+            }
+            if (singleRadio && singleRadio.checked) {
+                const command = document.getElementById('command').value;
+                if (!command) {
+                    e.preventDefault();
+                    alert('Please fill in the Command field for single component applications.');
+                    return;
+                }
+            } else if (multiRadio && multiRadio.checked) {
+                // Validate all component fields
+                const componentNames = document.getElementsByName('component_name[]');
+                const componentCommands = document.getElementsByName('component_command[]');
+                const componentWorkingDirs = document.getElementsByName('component_working_dir[]');
+                let valid = false;
+                for (let i = 0; i < componentNames.length; i++) {
+                    if (
+                        componentNames[i].value.trim() &&
+                        componentCommands[i].value.trim() &&
+                        componentWorkingDirs[i].value.trim()
+                    ) {
+                        valid = true;
+                    } else {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (!valid || componentNames.length === 0) {
+                    e.preventDefault();
+                    alert('Please fill in all fields (Name, Command, Working Directory) for each component.');
+                    return;
+                }
             }
         });
     }

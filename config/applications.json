@@ -1,3 +1,29 @@
 {
-  "applications": []
+  "applications": [
+    {
+      "id": "200",
+      "name": "ProposalAuthoring",
+      "description": "Proposal building Tool that helps user create proposals efficiently.",
+      "icon": "monitor",
+      "category": "Development",
+      "working_dir": "C:\\Users\\Administrator\\Documents\\proposal-craft-main",
+      "url": "http://localhost:3000/",
+      "components": [
+        {
+          "name": "Backend",
+          "command": "python main.py",
+          "working_dir": "C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\server\\src",
+          "order": 1,
+          "url": "http://127.0.0.1:8000/"
+        },
+        {
+          "name": "Frontend",
+          "command": "npm run dev",
+          "working_dir": "C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\client",
+          "order": 2,
+          "url": "http://localhost:3000/"
+        }
+      ]
+    }
+  ]
 }

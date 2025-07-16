@@ -124,30 +124,42 @@ def add_application():
             # Single component application
             app_config['command'] = request.form.get('command', '').strip()
             app_config['working_dir'] = request.form.get('working_dir', '').strip()
+            app_url = request.form.get('app_url', '').strip()
+            if app_url:
+                app_config['url'] = app_url
         else:
             # Multi-component application
             app_config['working_dir'] = request.form.get('app_working_dir', '').strip()
-            
+            multi_app_url = request.form.get('multi_app_url', '').strip()
+            if multi_app_url:
+                app_config['url'] = multi_app_url
             # Get component data
             component_names = request.form.getlist('component_name[]')
             component_commands = request.form.getlist('component_command[]')
+            component_working_dirs = request.form.getlist('component_working_dir[]')
             component_orders = request.form.getlist('component_order[]')
-            
+            component_urls = request.form.getlist('component_url[]')
             components = []
             for i, name in enumerate(component_names):
-                if name.strip() and i < len(component_commands) and component_commands[i].strip():
-                    components.append({
+                if (
+                    name.strip() and
+                    i < len(component_commands) and component_commands[i].strip() and
+                    i < len(component_working_dirs) and component_working_dirs[i].strip()
+                ):
+                    comp = {
                         'name': name.strip(),
                         'command': component_commands[i].strip(),
+                        'working_dir': component_working_dirs[i].strip(),
                         'order': int(component_orders[i]) if i < len(component_orders) else 1
-                    })
-            
+                    }
+                    if i < len(component_urls) and component_urls[i].strip():
+                        comp['url'] = component_urls[i].strip()
+                    components.append(comp)
             if components:
                 app_config['components'] = components
             else:
                 flash('At least one component is required for multi-component applications.', 'error')
                 return redirect(url_for('manage'))
-        
         # Add application using config manager
         if config_manager.add_application(app_config):
             flash('Application added successfully!', 'success')
@@ -190,7 +202,7 @@ def remove_application(app_id):
 
 @app.route('/view/<app_id>')
 def view_application(app_id):
-    """View a running application in a terminal-like interface"""
+    """View a running application in a terminal-like interface or redirect to its URL if specified"""
     try:
         application = config_manager.get_application(app_id)
         if not application:
@@ -201,6 +213,17 @@ def view_application(app_id):
         if not process_manager.is_running(app_id):
             flash(f"Application '{application['name']}' is not running", 'warning')
             return redirect(url_for('index'))
+        
+        # If the application has a URL, redirect to it
+        app_url = application.get('url')
+        if not app_url and application.get('components'):
+            # Try to get URL from frontend component
+            for comp in application['components']:
+                if comp.get('name', '').lower() == 'frontend' and comp.get('url'):
+                    app_url = comp['url']
+                    break
+        if app_url:
+            return redirect(app_url)
         
         return render_template('terminal.html', application=application, app_id=app_id)
         

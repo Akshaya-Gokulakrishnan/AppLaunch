@@ -1,0 +1,264 @@
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:24: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:28: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\server\\src']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [12076] using WatchFiles
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+INFO:     Started server process [10940]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:tortoise:Tortoise-ORM shutdown
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10940]
+INFO:     Stopping reloader process [12076]
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:24: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:28: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\server\\src']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [7056] using WatchFiles
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+INFO:     Started server process [488]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:watchfiles.main:2 changes detected
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:tortoise:Tortoise-ORM shutdown
+INFO:     Application shutdown complete.
+INFO:     Finished server process [488]
+INFO:     Stopping reloader process [7056]
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:24: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:28: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\server\\src']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [436] using WatchFiles
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+INFO:     Started server process [4792]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:watchfiles.main:2 changes detected
+INFO:     127.0.0.1:63106 - "OPTIONS /api/auth/session HTTP/1.1" 200 OK
+Decoded JWT payload: None
+Fetched session user: None
+INFO:     127.0.0.1:63110 - "GET /api/auth/session HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:63108 - "OPTIONS /api/auth/register HTTP/1.1" 200 OK
+WARNING:passlib.handlers.bcrypt:(trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+INFO:     127.0.0.1:63108 - "POST /api/auth/register HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63108 - "OPTIONS /api/auth/login HTTP/1.1" 200 OK
+INFO:watchfiles.main:1 change detected
+INFO:     127.0.0.1:63127 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63127 - "OPTIONS /api/data/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63108 - "OPTIONS /api/data/dashboard HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+Fetched session user: <User>
+INFO:     127.0.0.1:63111 - "GET /api/auth/session HTTP/1.1" 200 OK
+Found user: <User>
+Set request.state.user to: <User>
+INFO:     127.0.0.1:63108 - "GET /api/data/dashboard HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+INFO:     127.0.0.1:63108 - "GET /api/data/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63137 - "OPTIONS /api/workspaces HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63138 - "OPTIONS /api/workspaces HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+LINFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:tortoise:Tortoise-ORM shutdown
+INFO:     Application shutdown complete.
+INFO:     Finished server process [488]
+INFO:     Stopping reloader process [12644]
+Found user: <User>
+Set request.state.user to: <User>
+INFO:     127.0.0.1:63138 - "GET /api/workspaces HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+INFO:     127.0.0.1:63139 - "GET /api/data/dashboard HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+INFO:     127.0.0.1:63139 - "GET /api/data/dashboard HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+Fetched session user: <User>
+INFO:     127.0.0.1:63150 - "GET /api/auth/session HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+Found user: <User>
+Set request.state.user to: <User>
+Fetched session user: <User>
+INFO:     127.0.0.1:63150 - "GET /api/auth/session HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63139 - "GET /api/data/dashboard HTTP/1.1" 200 OK
+Decoded JWT payload: {'user_id': 3, 'exp': 1752720298}
+Looking for user with ID: 3
+Found user: <User>
+Set request.state.user to: <User>
+INFO:     127.0.0.1:63139 - "GET /api/data/dashboard HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:tortoise:Tortoise-ORM shutdown
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4792]
+INFO:     Stopping reloader process [436]
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:24: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:28: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\server\\src']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [11428] using WatchFiles
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pypdf\_crypt_providers\_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+INFO:     Started server process [2128]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:watchfiles.main:2 changes detected
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:tortoise:Tortoise-ORM shutdown
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2128]
+INFO:     Stopping reloader process [11428]
+ will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:24: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py:28: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Administrator\\Documents\\proposal-craft-main\\apps\\server\\src']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [9796] using WatchFiles
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 125, in _main
+    prepare(preparation_data)
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 236, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 287, in _fixup_main_from_path
+    main_content = runpy.run_path(main_path,
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 289, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 96, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\main.py", line 9, in <module>
+    from api.routes.sources import router as sources_router
+  File "C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\api\routes\sources.py", line 4, in <module>
+    from api.handlers import sources as sources_handlers
+  File "C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\api\handlers\sources.py", line 12, in <module>
+    from utils.extract_pdf import extract_pdf_sections
+  File "C:\Users\Administrator\Documents\proposal-craft-main\apps\server\src\utils\extract_pdf.py", line 5, in <module>
+    import pytesseract
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pytesseract\__init__.py", line 2, in <module>
+    from .pytesseract import ALTONotSupported
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pytesseract\pytesseract.py", line 42, in <module>
+    import pandas as pd
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pandas\__init__.py", line 61, in <module>
+    from pandas.core.api import (
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pandas\core\api.py", line 47, in <module>
+    from pandas.core.groupby import (
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pandas\core\groupby\__init__.py", line 1, in <module>
+    from pandas.core.groupby.generic import (
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pandas\core\groupby\generic.py", line 60, in <module>
+    from pandas.core.apply import (
+  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\pandas\core\apply.py", line 56, in <module>
+    from pandas.core._numba.executor import generate_apply_looper
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
+INFO:     Stopping reloader process [9796]

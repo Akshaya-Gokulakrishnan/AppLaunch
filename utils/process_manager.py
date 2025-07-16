@@ -55,16 +55,23 @@ class ProcessManager:
             # Split command into parts for subprocess
             command_parts = command.split()
             
+            # Prepare log file for single component
+            log_file = None
+            if app_config.get('name'):
+                log_file = open(f"{app_config.get('name').lower()}_{app_id}.log", "a", encoding="utf-8")
+            else:
+                log_file = open(f"app_{app_id}.log", "a", encoding="utf-8")
             # Launch the process
             process = subprocess.Popen(
                 command_parts,
                 cwd=working_dir,
-                stdout=subprocess.PIPE,
+                stdout=log_file,
                 stderr=subprocess.STDOUT,  # Combine stderr with stdout
                 stdin=subprocess.PIPE,
                 text=True,
                 bufsize=1,  # Line buffered
-                universal_newlines=True
+                universal_newlines=True,
+                shell=True  # Use shell=True for Windows compatibility
             )
             
             # Store process information
@@ -118,16 +125,19 @@ class ProcessManager:
                 # Split command into parts for subprocess
                 command_parts = command.split()
                 
+                # Prepare log file for each component
+                comp_log_file = open(f"{component_name.lower()}_{app_id}.log", "a", encoding="utf-8")
                 # Launch the component process
                 process = subprocess.Popen(
                     command_parts,
                     cwd=working_dir,
-                    stdout=subprocess.PIPE,
+                    stdout=comp_log_file,
                     stderr=subprocess.STDOUT,
                     stdin=subprocess.PIPE,
                     text=True,
                     bufsize=1,
-                    universal_newlines=True
+                    universal_newlines=True,
+                    shell=True  # Use shell=True for Windows compatibility
                 )
                 
                 launched_processes[component_name] = process
